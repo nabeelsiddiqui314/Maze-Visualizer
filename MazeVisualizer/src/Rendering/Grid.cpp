@@ -1,0 +1,36 @@
+#include "Grid.h"
+
+Grid::Grid(int width, int height, int cellWidth, int spacing, const sf::Color& color)
+ : m_vertices(sf::Quads, width * height * 4),
+   m_width(width) {
+	int totalWidth = cellWidth + spacing;
+
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			std::size_t index = getFirstCellVertex({x, y});
+	
+			m_vertices[index].position     = sf::Vector2f(x * totalWidth, y * totalWidth);
+			m_vertices[index + 1].position = sf::Vector2f(x * totalWidth, y * totalWidth + cellWidth);
+			m_vertices[index + 2].position = sf::Vector2f(x * totalWidth + cellWidth, y * totalWidth + cellWidth);
+			m_vertices[index + 3].position = sf::Vector2f(x * totalWidth + cellWidth, y * totalWidth);
+	
+			setCellColor({x, y}, color);
+		}
+	}
+}
+
+void Grid::setCellColor(const sf::Vector2i& position, const sf::Color& color) {
+	std::size_t index = getFirstCellVertex(position);
+
+	for (std::size_t i = 0; i < 4; i++) {
+		m_vertices[index + i].color = color;
+	}
+}
+
+void Grid::render(sf::RenderTarget& target) {
+	target.draw(m_vertices);
+}
+
+std::size_t Grid::getFirstCellVertex(const sf::Vector2i& position) const {
+	return (position.x + position.y * m_width) * 4;
+}
