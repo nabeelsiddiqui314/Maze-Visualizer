@@ -13,5 +13,5 @@ Cell Maze::getCellAt(const sf::Vector2i& position) const {
 }
 
 std::size_t Maze::getIndex(const sf::Vector2i& position) const {
-    return std::size_t();
+    return position.x + position.y * m_width;
 }
