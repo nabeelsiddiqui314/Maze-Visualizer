@@ -142,6 +142,7 @@
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Maze\Maze.h" />
     <ClInclude Include="src\Rendering\Grid.h" />
+    <ClInclude Include="src\Util\Coords.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
