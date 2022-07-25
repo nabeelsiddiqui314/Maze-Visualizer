@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Maze\IMazeObserver.h" />
     <ClInclude Include="src\Maze\Maze.h" />
     <ClInclude Include="src\Rendering\Grid.h" />
     <ClInclude Include="src\Util\Coords.h" />
