@@ -17,6 +17,10 @@ Cell Maze::getCellAt(const Coords& position) const {
     return m_cells[getIndex(position)];
 }
 
+Size Maze::getSize() const {
+    return m_size;
+}
+
 void Maze::registerObserver(IMazeObserver* observer) {
     m_observers.push_back(observer);
 }

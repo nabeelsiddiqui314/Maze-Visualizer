@@ -18,6 +18,8 @@ public:
 	void setCellAt(const Coords& position, const Cell& cell);
 	Cell getCellAt(const Coords& position) const;
 
+	Size getSize() const;
+
 	void registerObserver(IMazeObserver* observer);
 private:
 	std::size_t getIndex(const Coords& position) const;
