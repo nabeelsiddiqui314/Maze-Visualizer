@@ -137,12 +137,14 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Maze\Maze.cpp" />
     <ClCompile Include="src\Rendering\Grid.cpp" />
+    <ClCompile Include="src\Rendering\MazeVisualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Maze\IMazeObserver.h" />
     <ClInclude Include="src\Maze\Maze.h" />
     <ClInclude Include="src\Rendering\Grid.h" />
+    <ClInclude Include="src\Rendering\MazeVisualizer.h" />
     <ClInclude Include="src\Util\Coords.h" />
     <ClInclude Include="src\Util\Size.h" />
   </ItemGroup>
