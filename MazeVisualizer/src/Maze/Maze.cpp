@@ -1,9 +1,9 @@
 #include "Maze.h"
 #include "IMazeObserver.h"
 
-Maze::Maze(int width, int height) 
-    : m_cells(width * height, Cell::EMPTY), 
-      m_width(width) {}
+Maze::Maze(const Size& size) 
+    : m_cells(size.width * size.height, Cell::EMPTY), 
+      m_size(size) {}
 
 void Maze::setCellAt(const Coords& position, const Cell& cell) {
     m_cells[getIndex(position)] = cell;
@@ -22,5 +22,5 @@ void Maze::registerObserver(IMazeObserver* observer) {
 }
 
 std::size_t Maze::getIndex(const Coords& position) const {
-    return position.x + position.y * m_width;
+    return position.x + position.y * m_size.width;
 }

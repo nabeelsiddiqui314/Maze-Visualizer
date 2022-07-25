@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Util/Coords.h"
+#include "../Util/Size.h"
 
 class Grid {
 public:
-	Grid(int width, int height, int cellWidth, int spacing, const sf::Color& color = sf::Color::White);
+	Grid(const Size& size, int cellWidth, int spacing, const sf::Color& color = sf::Color::White);
 	~Grid() = default;
 public:
 	void setCellColor(const Coords& position, const sf::Color& color);

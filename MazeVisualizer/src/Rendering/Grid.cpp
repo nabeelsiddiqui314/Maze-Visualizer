@@ -1,12 +1,12 @@
 #include "Grid.h"
 
-Grid::Grid(int width, int height, int cellWidth, int spacing, const sf::Color& color)
- : m_vertices(sf::Quads, width * height * 4),
-   m_width(width) {
+Grid::Grid(const Size& size, int cellWidth, int spacing, const sf::Color& color)
+ : m_vertices(sf::Quads, size.width * size.height * 4),
+   m_width(size.width) {
 	int totalWidth = cellWidth + spacing;
 
-	for (int y = 0; y < height; y++) {
-		for (int x = 0; x < width; x++) {
+	for (int y = 0; y < size.height; y++) {
+		for (int x = 0; x < size.width; x++) {
 			std::size_t index = getFirstCellVertex({x, y});
 	
 			m_vertices[index].position     = sf::Vector2f(x * totalWidth, y * totalWidth);

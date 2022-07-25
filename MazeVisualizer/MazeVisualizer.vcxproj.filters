@@ -44,5 +44,8 @@
     <ClInclude Include="src\Maze\IMazeObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Util\Size.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

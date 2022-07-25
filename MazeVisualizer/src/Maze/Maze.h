@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "../Util/Coords.h"
+#include "../Util/Size.h"
 
 enum class Cell {
 	EMPTY,
@@ -11,7 +12,7 @@ class IMazeObserver;
 
 class Maze {
 public:
-	Maze(int width, int height);
+	Maze(const Size& size);
 	~Maze() = default;
 public:
 	void setCellAt(const Coords& position, const Cell& cell);
@@ -22,6 +23,6 @@ private:
 	std::size_t getIndex(const Coords& position) const;
 private:
 	std::vector<Cell> m_cells;
-	int m_width;
+	Size m_size;
 	std::vector<IMazeObserver*> m_observers;
 };
