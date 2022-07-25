@@ -1,7 +1,7 @@
 #include "Maze.h"
 
 Maze::Maze(int width, int height) 
-    : m_cells(width * height), 
+    : m_cells(width * height, Cell::EMPTY), 
       m_width(width) {}
 
 void Maze::setCellAt(const Coords& position, const Cell& cell) {
