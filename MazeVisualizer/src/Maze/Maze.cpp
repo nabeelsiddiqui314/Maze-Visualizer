@@ -17,6 +17,14 @@ Cell Maze::getCellAt(const Coords& position) const {
     return m_cells[getIndex(position)];
 }
 
+void Maze::fill(const Cell& cell) {
+    std::fill(m_cells.begin(), m_cells.end(), cell);
+
+    for (auto& observer : m_observers) {
+        observer->onFill(cell);
+    }
+}
+
 Size Maze::getSize() const {
     return m_size;
 }

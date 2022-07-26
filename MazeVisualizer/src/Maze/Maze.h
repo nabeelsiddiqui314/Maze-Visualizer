@@ -18,6 +18,8 @@ public:
 	void setCellAt(const Coords& position, const Cell& cell);
 	Cell getCellAt(const Coords& position) const;
 
+	void fill(const Cell& cell);
+
 	Size getSize() const;
 
 	void registerObserver(IMazeObserver* observer);
