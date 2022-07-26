@@ -140,6 +140,7 @@
     <ClCompile Include="src\Rendering\MazeVisualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Algorithms\Generation\IMazeGenerator.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Maze\IMazeObserver.h" />
     <ClInclude Include="src\Maze\Maze.h" />

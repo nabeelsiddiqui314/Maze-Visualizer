@@ -53,5 +53,8 @@
     <ClInclude Include="src\Rendering\MazeVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Algorithms\Generation\IMazeGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
