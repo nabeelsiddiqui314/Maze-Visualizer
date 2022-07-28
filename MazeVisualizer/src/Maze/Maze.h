@@ -22,6 +22,8 @@ public:
 
 	Size getSize() const;
 
+	bool isOutOfBounds(const Coords& position) const;
+
 	void registerObserver(IMazeObserver* observer);
 private:
 	std::size_t getIndex(const Coords& position) const;

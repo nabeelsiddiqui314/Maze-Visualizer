@@ -29,6 +29,11 @@ Size Maze::getSize() const {
     return m_size;
 }
 
+bool Maze::isOutOfBounds(const Coords& position) const {
+    return position.x > 0 && position.x < m_size.width && 
+        position.y > 0 && position.y < m_size.height;
+}
+
 void Maze::registerObserver(IMazeObserver* observer) {
     m_observers.push_back(observer);
 }
