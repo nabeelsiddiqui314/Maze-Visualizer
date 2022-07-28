@@ -30,6 +30,9 @@
     <ClCompile Include="src\Rendering\MazeVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Algorithms\Generation\RecursiveBacktracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Algorithms\Generation\IMazeGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Algorithms\Generation\RecursiveBacktracker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Algorithms\Generation\RecursiveBacktracker.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Maze\Maze.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Algorithms\Generation\IMazeGenerator.h" />
+    <ClInclude Include="src\Algorithms\Generation\RecursiveBacktracker.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Maze\IMazeObserver.h" />
     <ClInclude Include="src\Maze\Maze.h" />
