@@ -1,5 +1,6 @@
 #include "Maze.h"
 #include "IMazeObserver.h"
+#include "../Algorithms/Generation/IMazeGenerator.h"
 
 Maze::Maze(const Size& size) 
     : m_cells(size.width * size.height, Cell::EMPTY), 
@@ -32,6 +33,16 @@ Size Maze::getSize() const {
 bool Maze::isOutOfBounds(const Coords& position) const {
     return position.x < 0 || position.x >= m_size.width || 
         position.y < 0 || position.y >= m_size.height;
+}
+
+void Maze::setGenerator(std::unique_ptr<IMazeGenerator> generator) {
+    m_generator = std::move(generator);
+}
+
+void Maze::generate() {
+    if (m_generator) {
+        m_generator->generate(*this);
+    }
 }
 
 void Maze::registerObserver(IMazeObserver* observer) {

@@ -1,10 +1,13 @@
 #include "Application.h"
 #include <SFML/Window/Event.hpp>
 
+#include "Algorithms/Generation/RecursiveBacktracker.h"
+
 Application::Application(std::uint32_t width, std::uint32_t height, const std::string& title)
 	: m_window(sf::VideoMode(width, height), title), m_maze({(int)width / 21, (int)height / 21}), m_visualizer(&m_maze, 20, 1) {
 	
 	m_maze.registerObserver(&m_visualizer);
+	m_maze.setGenerator(std::make_unique<RecursiveBacktracker>());
 }
 
 void Application::execute() {
@@ -15,6 +18,11 @@ void Application::execute() {
 			switch (event.type) {
 			case sf::Event::Closed:
 				m_window.close();
+				break;
+			case sf::Event::KeyReleased:
+				if (event.key.code == sf::Keyboard::G) {
+					m_maze.generate();
+				}
 				break;
 			}
 		}
