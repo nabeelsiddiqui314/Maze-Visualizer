@@ -139,6 +139,7 @@
     <ClCompile Include="src\Maze\Maze.cpp" />
     <ClCompile Include="src\Rendering\Grid.cpp" />
     <ClCompile Include="src\Rendering\MazeVisualizer.cpp" />
+    <ClCompile Include="src\Util\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Algorithms\Generation\IMazeGenerator.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="src\Rendering\Grid.h" />
     <ClInclude Include="src\Rendering\MazeVisualizer.h" />
     <ClInclude Include="src\Util\Coords.h" />
+    <ClInclude Include="src\Util\Random.h" />
     <ClInclude Include="src\Util\Size.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

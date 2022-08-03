@@ -33,6 +33,9 @@
     <ClCompile Include="src\Algorithms\Generation\RecursiveBacktracker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Util\Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Algorithms\Pathfinding\IPathfinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

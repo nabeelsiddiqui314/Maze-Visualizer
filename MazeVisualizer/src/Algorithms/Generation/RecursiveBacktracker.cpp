@@ -2,6 +2,7 @@
 #include "../../Maze/Maze.h"
 #include <stack>
 #include <vector>
+#include "../../Util/Random.h"
 
 void RecursiveBacktracker::generate(Maze& maze) {
 	maze.fill(Cell::WALL);
@@ -30,7 +31,7 @@ void RecursiveBacktracker::generate(Maze& maze) {
 		tryVisitNeighbor({ 0, -1 });
 
 		if (!neighbors.empty()) {
-			std::size_t neighborIndex = rand() % neighbors.size();
+			std::size_t neighborIndex = Random::get(neighbors.size());
 			Coords neighborOffset = neighbors[neighborIndex];
 
 			maze.setCellAt(currentCell + neighborOffset, Cell::EMPTY);
