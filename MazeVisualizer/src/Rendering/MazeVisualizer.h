@@ -10,7 +10,7 @@ public:
 	~MazeVisualizer() = default;
 public:
 	void onCellChange(const Coords& position) override;
-	void onFill(const Cell& cell);
+	void onFill(const Cell& cell) override;
 	void render(sf::RenderTarget& target);
 private:
 	sf::Color getColor(const Cell& cell) const;
