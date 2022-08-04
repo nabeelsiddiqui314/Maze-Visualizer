@@ -1,10 +1,13 @@
 #include "Maze.h"
 #include "IMazeObserver.h"
 #include "../Algorithms/Generation/IMazeGenerator.h"
+#include "../Util/Random.h"
 
 Maze::Maze(const Size& size) 
     : m_cells(size.width * size.height, Cell::EMPTY), 
-      m_size(size) {}
+      m_size(size),
+      m_start(Random::get(size.width), Random::get(size.height)),
+      m_end(Random::get(size.width), Random::get(size.height)) {}
 
 void Maze::setCellAt(const Coords& position, const Cell& cell) {
     m_cells[getIndex(position)] = cell;
@@ -43,6 +46,22 @@ void Maze::generate() {
     if (m_generator) {
         m_generator->generate(*this);
     }
+}
+
+void Maze::setPathStart(const Coords& position) {
+    m_start = position;
+}
+
+void Maze::setPathDestination(const Coords& position) {
+    m_end = position;
+}
+
+void Maze::setPathfinder(std::unique_ptr<IPathFinder> pathfinder) {
+    m_pathfinder = std::move(pathfinder);
+}
+
+void Maze::findPath() {
+    m_pathfinder->findPath(*this, m_start, m_end);
 }
 
 void Maze::registerObserver(IMazeObserver* observer) {
