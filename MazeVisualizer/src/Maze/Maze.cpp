@@ -4,13 +4,13 @@
 #include "../Util/Random.h"
 
 Maze::Maze(const Size& size) 
-    : m_cells(size.width * size.height, Cell::EMPTY), 
+    : m_cells(size, Cell::EMPTY), 
       m_size(size),
       m_start(Random::get(size.width), Random::get(size.height)),
       m_end(Random::get(size.width), Random::get(size.height)) {}
 
 void Maze::setCellAt(const Coords& position, const Cell& cell) {
-    m_cells[getIndex(position)] = cell;
+    m_cells[position] = cell;
 
     for (auto& observer : m_observers) {
         observer->onCellChange(position);
@@ -18,11 +18,11 @@ void Maze::setCellAt(const Coords& position, const Cell& cell) {
 }
 
 Cell Maze::getCellAt(const Coords& position) const {
-    return m_cells[getIndex(position)];
+    return m_cells[position];
 }
 
 void Maze::fill(const Cell& cell) {
-    std::fill(m_cells.begin(), m_cells.end(), cell);
+    m_cells.fill(cell);
 
     for (auto& observer : m_observers) {
         observer->onFill(cell);
@@ -66,8 +66,4 @@ void Maze::findPath() {
 
 void Maze::registerObserver(IMazeObserver* observer) {
     m_observers.push_back(observer);
-}
-
-std::size_t Maze::getIndex(const Coords& position) const {
-    return position.x + position.y * m_size.width;
 }

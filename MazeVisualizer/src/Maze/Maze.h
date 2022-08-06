@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "../Util/Coords.h"
-#include "../Util/Size.h"
+#include "../Util/Array2D.h"
 #include "../Algorithms/Generation/IMazeGenerator.h"
 #include "../Algorithms/Pathfinding/IPathfinder.h"
 
@@ -38,9 +37,7 @@ public:
 
 	void registerObserver(IMazeObserver* observer);
 private:
-	std::size_t getIndex(const Coords& position) const;
-private:
-	std::vector<Cell> m_cells;
+	Array2D<Cell> m_cells;
 	Size m_size;
 	std::unique_ptr<IMazeGenerator> m_generator;
 	Coords m_start, m_end;

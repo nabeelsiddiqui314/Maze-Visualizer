@@ -71,5 +71,8 @@
     <ClInclude Include="src\Util\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Util\Array2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
