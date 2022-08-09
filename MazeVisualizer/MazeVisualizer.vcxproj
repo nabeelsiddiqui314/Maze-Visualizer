@@ -152,6 +152,7 @@
     <ClInclude Include="src\Rendering\MazeVisualizer.h" />
     <ClInclude Include="src\Util\Array2D.h" />
     <ClInclude Include="src\Util\Coords.h" />
+    <ClInclude Include="src\Util\Directions.h" />
     <ClInclude Include="src\Util\Random.h" />
     <ClInclude Include="src\Util\Size.h" />
   </ItemGroup>
