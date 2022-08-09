@@ -33,6 +33,9 @@ sf::Color MazeVisualizer::getColor(const Cell& cell) const {
 	case Cell::WALL:
 		color =  sf::Color::Black;
 		break;
+	case Cell::PATH:
+		color = sf::Color::Yellow;
+		break;
 	}
 
 	return color;

@@ -7,7 +7,8 @@
 
 enum class Cell {
 	EMPTY,
-	WALL
+	WALL,
+	PATH
 };
 
 class IMazeObserver;
