@@ -3,6 +3,7 @@
 #include <stack>
 #include <vector>
 #include "../../Util/Random.h"
+#include "../../Util/Directions.h"
 
 void RecursiveBacktracker::generate(Maze& maze) {
 	maze.fill(Cell::WALL);
@@ -18,17 +19,12 @@ void RecursiveBacktracker::generate(Maze& maze) {
 
 		std::vector<Coords> neighbors;
 
-		auto tryVisitNeighbor = [&](const Coords& offset) {
+		for (auto& offset : Directions::List) {
 			Coords neighborSection = currentSection + offset;
 			if (doesSectionExist(maze, neighborSection) && !isSectionVisited(maze, neighborSection)) {
 				neighbors.push_back(offset);
 			}
-		};
-
-		tryVisitNeighbor({ 1,  0 });
-		tryVisitNeighbor({-1,  0 });
-		tryVisitNeighbor({ 0,  1 });
-		tryVisitNeighbor({ 0, -1 });
+		}
 
 		if (!neighbors.empty()) {
 			std::size_t neighborIndex = Random::get(neighbors.size());
