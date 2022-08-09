@@ -7,8 +7,6 @@
 
 Application::Application(std::uint32_t width, std::uint32_t height, const std::string& title)
 	: m_window(sf::VideoMode(width, height), title), m_maze({(int)width / 21, (int)height / 21}), m_visualizer(&m_maze, 20, 1) {
-	Random::init();
-
 	m_maze.registerObserver(&m_visualizer);
 	m_maze.setGenerator(std::make_unique<RecursiveBacktracker>());
 	m_maze.setPathfinder(std::make_unique<Wavefront>());

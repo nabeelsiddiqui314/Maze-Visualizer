@@ -1,9 +1,19 @@
 #include "Random.h"
 
-void Random::init() {
-	srand(time(NULL));
+namespace {
+	bool seeded = false;
 }
 
-int Random::get(int upperBound) {
-	return rand() % upperBound;
+void seed() {
+	srand(time(NULL));
+	seeded = true;
+}
+
+namespace Random {
+	int get(int upperBound) {
+		if (!seeded)
+			seed();
+
+		return rand() % upperBound;
+	}
 }
