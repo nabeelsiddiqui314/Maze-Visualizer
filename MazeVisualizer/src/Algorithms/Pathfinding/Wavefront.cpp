@@ -38,11 +38,12 @@ void Wavefront::findPath(Maze& maze, const Coords& start, const Coords& destinat
 
 	while (currentPosition != start) {
 		maze.setCellAt(currentPosition, Cell::PATH);
-	
-		int distance = distanceField[currentPosition];
+
+		Coords centralPosition = currentPosition;
+		int distance = distanceField[centralPosition];
 	
 		for (auto& direction : Directions::List) {
-			Coords neighborPosition = currentPosition + direction;
+			Coords neighborPosition = centralPosition + direction;
 			
 			if (maze.isOutOfBounds(neighborPosition))
 				continue;
