@@ -1,12 +1,15 @@
 #include "MazeVisualizer.h"
 #include "../Maze/Maze.h"
+#include <thread>
+
+using namespace std::chrono_literals;
 
 MazeVisualizer::MazeVisualizer(Maze* maze, int cellWidth, int spacing) 
-	: m_maze(maze), m_grid(maze->getSize(), cellWidth, spacing) {}
+	: m_maze(maze), m_grid(maze->getSize(), cellWidth, spacing), m_stepDelay(5us) {}
 
 void MazeVisualizer::onCellChange(const Coords& position) {
-	Cell modifiedCell = m_maze->getCellAt(position);
-	m_grid.setCellColor(position, getColor(modifiedCell));
+	Cell newCell = m_maze->getCellAt(position);
+	m_changes.push({ position, newCell });
 }
 
 void MazeVisualizer::onFill(const Cell& cell) {
@@ -20,7 +23,20 @@ void MazeVisualizer::onFill(const Cell& cell) {
 }
 
 void MazeVisualizer::render(sf::RenderTarget& target) {
+	if (!m_changes.empty()) {
+		auto change = m_changes.front();
+		m_changes.pop();
+
+		m_grid.setCellColor(change.position, getColor(change.newCell));
+
+		std::this_thread::sleep_for(m_stepDelay);
+	}
+
 	m_grid.render(target);
+}
+
+void MazeVisualizer::setStepDelay(const std::chrono::microseconds& delay) {
+	m_stepDelay = delay;
 }
 
 sf::Color MazeVisualizer::getColor(const Cell& cell) const {
