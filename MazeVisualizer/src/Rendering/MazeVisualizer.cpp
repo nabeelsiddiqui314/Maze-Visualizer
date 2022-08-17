@@ -1,5 +1,4 @@
 #include "MazeVisualizer.h"
-#include "../Maze/Maze.h"
 #include <thread>
 
 using namespace std::chrono_literals;
@@ -9,7 +8,18 @@ MazeVisualizer::MazeVisualizer(Maze* maze, int cellWidth, int spacing)
 
 void MazeVisualizer::onCellChange(const Coords& position) {
 	Cell newCell = m_maze->getCellAt(position);
-	m_changes.push({ position, newCell });
+	sf::Color cellColor = getColor(newCell);
+
+	// directly set color if no algorithm is being executed
+	if (m_maze->getState() == State::IDLE) {
+		m_grid.setCellColor(position, cellColor);
+		return;
+	}
+
+	sf::Color cursorColor = getCursorColor(m_maze->getState());
+
+	setCellColor(position, cursorColor, true);
+	setCellColor(position, cellColor, false);
 }
 
 void MazeVisualizer::onFill(const Cell& cell) {
@@ -27,9 +37,11 @@ void MazeVisualizer::render(sf::RenderTarget& target) {
 		auto change = m_changes.front();
 		m_changes.pop();
 
-		m_grid.setCellColor(change.position, getColor(change.newCell));
+		m_grid.setCellColor(change.position, change.color);
 
-		std::this_thread::sleep_for(m_stepDelay);
+		if (!change.showStep) {
+			std::this_thread::sleep_for(m_stepDelay);
+		}
 	}
 
 	m_grid.render(target);
@@ -55,4 +67,23 @@ sf::Color MazeVisualizer::getColor(const Cell& cell) const {
 	}
 
 	return color;
+}
+
+sf::Color MazeVisualizer::getCursorColor(const State& state) const {
+	sf::Color color;
+
+	switch (m_maze->getState()) {
+	case State::GENERATING:
+		color = sf::Color::Red;
+		break;
+	case State::PATHFINDING:
+		color = sf::Color::Green;
+		break;
+	}
+
+	return color;
+}
+
+void MazeVisualizer::setCellColor(const Coords& position, const sf::Color& color, bool showStep) {
+	m_changes.push({ position, color, showStep });
 }
