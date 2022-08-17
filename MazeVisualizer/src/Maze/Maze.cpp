@@ -7,7 +7,8 @@ Maze::Maze(const Size& size)
     : m_cells(size, Cell::EMPTY), 
       m_size(size),
       m_start(Random::get(size.width), Random::get(size.height)),
-      m_end(Random::get(size.width), Random::get(size.height)) {}
+      m_end(Random::get(size.width), Random::get(size.height)),
+      m_state(State::IDLE) {}
 
 void Maze::setCellAt(const Coords& position, const Cell& cell) {
     m_cells[position] = cell;
@@ -43,9 +44,13 @@ void Maze::setGenerator(std::unique_ptr<IMazeGenerator> generator) {
 }
 
 void Maze::generate() {
+    m_state = State::GENERATING;
+
     if (m_generator) {
         m_generator->generate(*this);
     }
+
+    m_state = State::IDLE;
 }
 
 void Maze::setPathStart(const Coords& position) {
@@ -56,12 +61,22 @@ void Maze::setPathDestination(const Coords& position) {
     m_end = position;
 }
 
+State Maze::getState() const {
+    return m_state;
+}
+
 void Maze::setPathfinder(std::unique_ptr<IPathFinder> pathfinder) {
     m_pathfinder = std::move(pathfinder);
 }
 
 void Maze::findPath() {
-    m_pathfinder->findPath(*this, m_start, m_end);
+    m_state = State::PATHFINDING;
+
+    if (m_pathfinder) {
+        m_pathfinder->findPath(*this, m_start, m_end);
+    }
+
+    m_state = State::IDLE;
 }
 
 void Maze::registerObserver(IMazeObserver* observer) {

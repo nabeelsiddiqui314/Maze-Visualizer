@@ -11,6 +11,12 @@ enum class Cell {
 	PATH
 };
 
+enum class State {
+	IDLE,
+	GENERATING,
+	PATHFINDING
+};
+
 class IMazeObserver;
 
 class Maze {
@@ -36,6 +42,8 @@ public:
 	void setPathfinder(std::unique_ptr<IPathFinder> pathfinder);
 	void findPath();
 
+	State getState() const;
+
 	void registerObserver(IMazeObserver* observer);
 private:
 	Array2D<Cell> m_cells;
@@ -44,4 +52,5 @@ private:
 	Coords m_start, m_end;
 	std::unique_ptr<IPathFinder> m_pathfinder;
 	std::vector<IMazeObserver*> m_observers;
+	State m_state;
 };
