@@ -41,6 +41,7 @@ void Wavefront::findPath(Maze& maze, const Coords& start, const Coords& destinat
 
 		Coords centralPosition = currentPosition;
 		int distance = distanceField[centralPosition];
+		bool changedPosition = false;
 	
 		for (auto& direction : Directions::List) {
 			Coords neighborPosition = centralPosition + direction;
@@ -53,7 +54,11 @@ void Wavefront::findPath(Maze& maze, const Coords& start, const Coords& destinat
 			if (neighborDistance != 0 && neighborDistance < distance) {
 				distance = neighborDistance;
 				currentPosition = neighborPosition;
+				changedPosition = true;
 			}
 		}
+
+		if (!changedPosition)
+			break;
 	}
 }
