@@ -9,6 +9,8 @@ public:
 	~Grid() = default;
 public:
 	void setCellColor(const Coords& position, const sf::Color& color);
+	sf::Color getCellColor(const Coords& position) const;
+
 	void render(sf::RenderTarget& target);
 private:
 	std::size_t getFirstCellVertex(const Coords& position) const;

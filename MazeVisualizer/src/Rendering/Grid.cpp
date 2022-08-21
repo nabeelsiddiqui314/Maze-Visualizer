@@ -27,6 +27,11 @@ void Grid::setCellColor(const Coords& position, const sf::Color& color) {
 	}
 }
 
+sf::Color Grid::getCellColor(const Coords& position) const {
+	std::size_t index = getFirstCellVertex(position);
+	return m_vertices[index].color;
+}
+
 void Grid::render(sf::RenderTarget& target) {
 	target.draw(m_vertices);
 }
