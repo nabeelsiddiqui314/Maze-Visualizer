@@ -19,6 +19,10 @@ void Maze::setCellAt(const Coords& position, const Cell& cell) {
 }
 
 Cell Maze::getCellAt(const Coords& position) const {
+    for (auto& observer : m_observers) {
+        observer->onCellSearch(position);
+    }
+
     return m_cells[position];
 }
 

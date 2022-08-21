@@ -17,6 +17,7 @@ public:
 	~MazeVisualizer() = default;
 public:
 	void onCellChange(const Coords& position) override;
+	void onCellSearch(const Coords& position) override;
 	void onFill(const Cell& cell) override;
 
 	void render(sf::RenderTarget& target);

@@ -22,6 +22,10 @@ void MazeVisualizer::onCellChange(const Coords& position) {
 	setCellColor(position, cellColor, false);
 }
 
+void MazeVisualizer::onCellSearch(const Coords& position) {
+
+}
+
 void MazeVisualizer::onFill(const Cell& cell) {
 	const Size& size = m_maze->getSize();
 	
