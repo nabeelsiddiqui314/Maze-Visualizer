@@ -39,14 +39,20 @@ void MazeVisualizer::render(sf::RenderTarget& target) {
 	if (!m_animationQueue.empty()) {
 		auto& animation = m_animationQueue.front();
 
-		if (animation.stage == 0) {
-			m_grid.setCellColor(animation.position, animation.cursorColor);
-			animation.stage++;
+		// if the color is already set to what is desired then don't bother with the animation
+		if (m_grid.getCellColor(animation.position) == animation.cellColor) {
+			m_animationQueue.pop();
 		}
 		else {
-			std::this_thread::sleep_for(m_stepDelay);
-			m_grid.setCellColor(animation.position, animation.cellColor);
-			m_animationQueue.pop();
+			if (animation.stage == 0) {
+				m_grid.setCellColor(animation.position, animation.cursorColor);
+				animation.stage++;
+			}
+			else {
+				std::this_thread::sleep_for(m_stepDelay);
+				m_grid.setCellColor(animation.position, animation.cellColor);
+				m_animationQueue.pop();
+			}
 		}
 	}
 
