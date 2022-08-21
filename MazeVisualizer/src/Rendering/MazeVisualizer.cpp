@@ -18,12 +18,11 @@ void MazeVisualizer::onCellChange(const Coords& position) {
 
 	sf::Color cursorColor = getCursorColor(m_maze->getState());
 
-	setCellColor(position, cursorColor, true);
-	setCellColor(position, cellColor, false);
+	enqueueAnimation(position, cellColor, cursorColor);
 }
 
 void MazeVisualizer::onCellSearch(const Coords& position) {
-
+	
 }
 
 void MazeVisualizer::onFill(const Cell& cell) {
@@ -37,14 +36,17 @@ void MazeVisualizer::onFill(const Cell& cell) {
 }
 
 void MazeVisualizer::render(sf::RenderTarget& target) {
-	if (!m_changes.empty()) {
-		auto change = m_changes.front();
-		m_changes.pop();
+	if (!m_animationQueue.empty()) {
+		auto& animation = m_animationQueue.front();
 
-		m_grid.setCellColor(change.position, change.color);
-
-		if (!change.showStep) {
+		if (animation.stage == 0) {
+			m_grid.setCellColor(animation.position, animation.cursorColor);
+			animation.stage++;
+		}
+		else {
 			std::this_thread::sleep_for(m_stepDelay);
+			m_grid.setCellColor(animation.position, animation.cellColor);
+			m_animationQueue.pop();
 		}
 	}
 
@@ -88,6 +90,6 @@ sf::Color MazeVisualizer::getCursorColor(const State& state) const {
 	return color;
 }
 
-void MazeVisualizer::setCellColor(const Coords& position, const sf::Color& color, bool showStep) {
-	m_changes.push({ position, color, showStep });
+void MazeVisualizer::enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor) {
+	m_animationQueue.push({ position, cellColor, cursorColor });
 }

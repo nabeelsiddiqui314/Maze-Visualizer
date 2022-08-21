@@ -5,10 +5,11 @@
 #include "Grid.h"
 #include "../Maze/Maze.h"
 
-struct ColorChange {
+struct Animation {
 	Coords position;
-	sf::Color color;
-	bool showStep;
+	sf::Color cellColor;
+	sf::Color cursorColor;
+	int stage = 0;
 };
 
 class MazeVisualizer : public IMazeObserver {
@@ -26,11 +27,11 @@ public:
 private:
 	sf::Color getColor(const Cell& cell) const;
 	sf::Color getCursorColor(const State& state) const;
-	void setCellColor(const Coords& position, const sf::Color& color, bool showStep);
+	void enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor);
 private:
 	Maze* m_maze;
 	Grid m_grid;
-	std::queue<ColorChange> m_changes;
+	std::queue<Animation> m_animationQueue;
 
 	std::chrono::microseconds m_stepDelay;
 };
