@@ -22,7 +22,11 @@ void MazeVisualizer::onCellChange(const Coords& position) {
 }
 
 void MazeVisualizer::onCellSearch(const Coords& position) {
-	
+	if (m_maze->getState() == State::PATHFINDING) {
+		if (m_grid.getCellColor(position) != getColor(Cell::WALL)) {
+			enqueueAnimation(position, sf::Color(20, 184, 128), sf::Color(213, 163, 20));
+		}
+	}
 }
 
 void MazeVisualizer::onFill(const Cell& cell) {
