@@ -1,5 +1,6 @@
 #include "MazeVisualizer.h"
 #include <thread>
+#include "Colors.h"
 
 using namespace std::chrono_literals;
 
@@ -8,23 +9,25 @@ MazeVisualizer::MazeVisualizer(Maze* maze, int cellWidth, int spacing)
 
 void MazeVisualizer::onCellChange(const Coords& position) {
 	Cell newCell = m_maze->getCellAt(position);
-	sf::Color cellColor = getColor(newCell);
+	sf::Color cellColor = getCellColor(newCell);
 
-	// directly set color if no algorithm is being executed
-	if (m_maze->getState() == State::IDLE) {
+	switch (m_maze->getState()) {
+	case State::IDLE:
 		m_grid.setCellColor(position, cellColor);
-		return;
+		break;
+	case State::GENERATING:
+		enqueueAnimation(position, cellColor, Colors::GenerationCursor);
+		break;
+	case State::PATHFINDING:
+		enqueueAnimation(position, cellColor, Colors::PathCursor);
+		break;
 	}
-
-	sf::Color cursorColor = getCursorColor(m_maze->getState());
-
-	enqueueAnimation(position, cellColor, cursorColor);
 }
 
 void MazeVisualizer::onCellSearch(const Coords& position) {
 	if (m_maze->getState() == State::PATHFINDING) {
-		if (m_grid.getCellColor(position) != getColor(Cell::WALL)) {
-			enqueueAnimation(position, sf::Color(20, 184, 128), sf::Color(213, 163, 20));
+		if (m_grid.getCellColor(position) != Colors::Wall) {
+			enqueueAnimation(position, Colors::SearchArea, Colors::SearchCursor);
 		}
 	}
 }
@@ -34,7 +37,7 @@ void MazeVisualizer::onFill(const Cell& cell) {
 	
 	for (int y = 0; y < size.height; y++) {
 		for (int x = 0; x < size.width; x++) {
-			m_grid.setCellColor({x, y}, getColor(cell));
+			m_grid.setCellColor({x, y}, getCellColor(cell));
 		}
 	}
 }
@@ -67,33 +70,18 @@ void MazeVisualizer::setStepDelay(const std::chrono::microseconds& delay) {
 	m_stepDelay = delay;
 }
 
-sf::Color MazeVisualizer::getColor(const Cell& cell) const {
+sf::Color MazeVisualizer::getCellColor(const Cell& cell) const {
 	sf::Color color;
 
 	switch (cell) {
 	case Cell::EMPTY:
-		color = sf::Color::White;
+		color = Colors::Empty;
 		break;
 	case Cell::WALL:
-		color =  sf::Color::Black;
+		color = Colors::Wall;
 		break;
 	case Cell::PATH:
-		color = sf::Color::Yellow;
-		break;
-	}
-
-	return color;
-}
-
-sf::Color MazeVisualizer::getCursorColor(const State& state) const {
-	sf::Color color;
-
-	switch (m_maze->getState()) {
-	case State::GENERATING:
-		color = sf::Color::Red;
-		break;
-	case State::PATHFINDING:
-		color = sf::Color::Green;
+		color = Colors::Path;
 		break;
 	}
 

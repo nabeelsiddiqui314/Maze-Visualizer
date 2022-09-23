@@ -25,8 +25,7 @@ public:
 
 	void setStepDelay(const std::chrono::microseconds& delay);
 private:
-	sf::Color getColor(const Cell& cell) const;
-	sf::Color getCursorColor(const State& state) const;
+	sf::Color getCellColor(const Cell& cell) const;
 	void enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor);
 private:
 	Maze* m_maze;

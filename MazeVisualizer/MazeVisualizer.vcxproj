@@ -150,6 +150,7 @@
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Maze\IMazeObserver.h" />
     <ClInclude Include="src\Maze\Maze.h" />
+    <ClInclude Include="src\Rendering\Colors.h" />
     <ClInclude Include="src\Rendering\Grid.h" />
     <ClInclude Include="src\Rendering\MazeVisualizer.h" />
     <ClInclude Include="src\Util\Array2D.h" />

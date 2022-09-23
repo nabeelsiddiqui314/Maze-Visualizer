@@ -83,5 +83,8 @@
     <ClInclude Include="src\Algorithms\Pathfinding\Wavefront.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Rendering\Colors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
