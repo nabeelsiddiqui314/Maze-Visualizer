@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Maze/Maze.h"
-#include "Rendering/MazeVisualizer.h"
+#include "Rendering/MazeView.h"
 
 class Application {
 public:
@@ -12,5 +12,5 @@ public:
 private:
 	sf::RenderWindow m_window;
 	Maze m_maze;
-	MazeVisualizer m_visualizer;
+	MazeView m_mazeView;
 };

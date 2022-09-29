@@ -1,13 +1,13 @@
-#include "MazeVisualizer.h"
+#include "MazeView.h"
 #include <thread>
 #include "Colors.h"
 
 using namespace std::chrono_literals;
 
-MazeVisualizer::MazeVisualizer(Maze* maze, int cellWidth, int spacing) 
+MazeView::MazeView(Maze* maze, int cellWidth, int spacing) 
 	: m_maze(maze), m_grid(maze->getSize(), cellWidth, spacing), m_stepDelay(5us) {}
 
-void MazeVisualizer::onCellChange(const Coords& position) {
+void MazeView::onCellChange(const Coords& position) {
 	Cell newCell = m_maze->getCellAt(position);
 	sf::Color cellColor = getCellColor(newCell);
 
@@ -24,7 +24,7 @@ void MazeVisualizer::onCellChange(const Coords& position) {
 	}
 }
 
-void MazeVisualizer::onCellSearch(const Coords& position) {
+void MazeView::onCellSearch(const Coords& position) {
 	if (m_maze->getState() == State::PATHFINDING) {
 		if (m_grid.getCellColor(position) != Colors::Wall) {
 			enqueueAnimation(position, Colors::SearchArea, Colors::SearchCursor);
@@ -32,7 +32,7 @@ void MazeVisualizer::onCellSearch(const Coords& position) {
 	}
 }
 
-void MazeVisualizer::onFill(const Cell& cell) {
+void MazeView::onFill(const Cell& cell) {
 	const Size& size = m_maze->getSize();
 	
 	for (int y = 0; y < size.height; y++) {
@@ -42,7 +42,7 @@ void MazeVisualizer::onFill(const Cell& cell) {
 	}
 }
 
-void MazeVisualizer::render(sf::RenderTarget& target) {
+void MazeView::render(sf::RenderTarget& target) {
 	if (!m_animationQueue.empty()) {
 		auto& animation = m_animationQueue.front();
 
@@ -66,11 +66,11 @@ void MazeVisualizer::render(sf::RenderTarget& target) {
 	m_grid.render(target);
 }
 
-void MazeVisualizer::setStepDelay(const std::chrono::microseconds& delay) {
+void MazeView::setStepDelay(const std::chrono::microseconds& delay) {
 	m_stepDelay = delay;
 }
 
-sf::Color MazeVisualizer::getCellColor(const Cell& cell) const {
+sf::Color MazeView::getCellColor(const Cell& cell) const {
 	sf::Color color;
 
 	switch (cell) {
@@ -88,6 +88,6 @@ sf::Color MazeVisualizer::getCellColor(const Cell& cell) const {
 	return color;
 }
 
-void MazeVisualizer::enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor) {
+void MazeView::enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor) {
 	m_animationQueue.push({ position, cellColor, cursorColor });
 }

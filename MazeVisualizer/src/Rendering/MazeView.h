@@ -12,10 +12,10 @@ struct Animation {
 	int stage = 0;
 };
 
-class MazeVisualizer : public IMazeObserver {
+class MazeView : public IMazeObserver {
 public:
-	MazeVisualizer(Maze* maze, int cellWidth, int spacing);
-	~MazeVisualizer() = default;
+	MazeView(Maze* maze, int cellWidth, int spacing);
+	~MazeView() = default;
 public:
 	void onCellChange(const Coords& position) override;
 	void onCellSearch(const Coords& position) override;

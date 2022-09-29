@@ -139,7 +139,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Maze\Maze.cpp" />
     <ClCompile Include="src\Rendering\Grid.cpp" />
-    <ClCompile Include="src\Rendering\MazeVisualizer.cpp" />
+    <ClCompile Include="src\Rendering\MazeView.cpp" />
     <ClCompile Include="src\Util\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +152,7 @@
     <ClInclude Include="src\Maze\Maze.h" />
     <ClInclude Include="src\Rendering\Colors.h" />
     <ClInclude Include="src\Rendering\Grid.h" />
-    <ClInclude Include="src\Rendering\MazeVisualizer.h" />
+    <ClInclude Include="src\Rendering\MazeView.h" />
     <ClInclude Include="src\Util\Array2D.h" />
     <ClInclude Include="src\Util\Coords.h" />
     <ClInclude Include="src\Util\Directions.h" />
