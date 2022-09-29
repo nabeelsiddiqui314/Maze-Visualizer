@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <vector>
 #include <chrono>
 #include "../Maze/IMazeObserver.h"
 #include "Grid.h"
@@ -10,6 +11,12 @@ struct Animation {
 	sf::Color cellColor;
 	sf::Color cursorColor;
 	int stage = 0;
+};
+
+struct Overlay {
+	Coords position;
+	sf::Color overlayColor;
+	sf::Color originalColor;
 };
 
 class MazeView : public IMazeObserver {
@@ -27,10 +34,12 @@ public:
 private:
 	sf::Color getCellColor(const Cell& cell) const;
 	void enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor);
+	void addOverlay(const Coords& position, const sf::Color& color);
 private:
 	Maze* m_maze;
 	Grid m_grid;
 	std::queue<Animation> m_animationQueue;
+	std::vector<Overlay> m_overlays;
 
 	std::chrono::microseconds m_stepDelay;
 };

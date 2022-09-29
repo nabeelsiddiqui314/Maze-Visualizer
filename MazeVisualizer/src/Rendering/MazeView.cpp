@@ -63,7 +63,16 @@ void MazeView::render(sf::RenderTarget& target) {
 		}
 	}
 
+	for (auto& overlay : m_overlays) {
+		m_grid.setCellColor(overlay.position, overlay.overlayColor);
+	}
+
 	m_grid.render(target);
+
+	for (auto& overlay : m_overlays) {
+		m_grid.setCellColor(overlay.position, overlay.originalColor);
+	}
+	m_overlays.clear();
 }
 
 void MazeView::setStepDelay(const std::chrono::microseconds& delay) {
@@ -90,4 +99,9 @@ sf::Color MazeView::getCellColor(const Cell& cell) const {
 
 void MazeView::enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor) {
 	m_animationQueue.push({ position, cellColor, cursorColor });
+}
+
+void MazeView::addOverlay(const Coords& position, const sf::Color& color) {
+	sf::Color originalColor = m_grid.getCellColor(position);
+	m_overlays.push_back({ position, color, originalColor });
 }
