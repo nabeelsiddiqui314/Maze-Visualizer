@@ -42,6 +42,11 @@ void MazeView::onFill(const Cell& cell) {
 	}
 }
 
+void MazeView::update() {
+	addOverlay(m_maze->getPathStart(), Colors::PathStart);
+	addOverlay(m_maze->getPathDestination(), Colors::PathEnd);
+}
+
 void MazeView::render(sf::RenderTarget& target) {
 	if (!m_animationQueue.empty()) {
 		auto& animation = m_animationQueue.front();

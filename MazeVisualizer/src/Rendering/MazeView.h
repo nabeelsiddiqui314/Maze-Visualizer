@@ -28,6 +28,7 @@ public:
 	void onCellSearch(const Coords& position) override;
 	void onFill(const Cell& cell) override;
 
+	void update();
 	void render(sf::RenderTarget& target);
 
 	void setStepDelay(const std::chrono::microseconds& delay);

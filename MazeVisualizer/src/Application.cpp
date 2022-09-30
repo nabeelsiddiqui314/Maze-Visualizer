@@ -34,7 +34,8 @@ void Application::execute() {
 		}
 
 		m_window.clear();
-
+		
+		m_mazeView.update();
 		m_mazeView.render(m_window);
 
 		m_window.display();
