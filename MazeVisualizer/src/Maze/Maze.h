@@ -39,6 +39,9 @@ public:
 	void setPathStart(const Coords& position);
 	void setPathDestination(const Coords& position);
 
+	Coords getPathStart() const;
+	Coords getPathDestination() const;
+
 	void setPathfinder(std::unique_ptr<IPathFinder> pathfinder);
 	void findPath();
 

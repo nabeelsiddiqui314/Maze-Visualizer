@@ -65,6 +65,14 @@ void Maze::setPathDestination(const Coords& position) {
     m_end = position;
 }
 
+Coords Maze::getPathStart() const {
+    return m_start;
+}
+
+Coords Maze::getPathDestination() const {
+    return m_end;
+}
+
 State Maze::getState() const {
     return m_state;
 }
