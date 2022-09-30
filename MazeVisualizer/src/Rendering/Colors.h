@@ -11,4 +11,7 @@ namespace Colors {
 	const sf::Color SearchCursor = sf::Color::Green;
 
 	const sf::Color SearchArea = sf::Color::Magenta;
+
+	const sf::Color PathStart = sf::Color::Blue;
+	const sf::Color PathEnd = sf::Color::Blue;
 }
