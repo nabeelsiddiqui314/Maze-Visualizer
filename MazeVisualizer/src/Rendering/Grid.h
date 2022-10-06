@@ -8,6 +8,9 @@ public:
 	Grid(const Size& size, int cellWidth, int spacing, const sf::Color& color = sf::Color::White);
 	~Grid() = default;
 public:
+	void setPosition(const sf::Vector2f& positon);
+	sf::Vector2f getPosition() const;
+
 	void setCellColor(const Coords& position, const sf::Color& color);
 	sf::Color getCellColor(const Coords& position) const;
 
@@ -16,5 +19,6 @@ private:
 	std::size_t getFirstCellVertex(const Coords& position) const;
 private:
 	sf::VertexArray m_vertices;
+	sf::Vector2f m_position;
 	int m_width;
 };

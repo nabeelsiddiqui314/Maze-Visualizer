@@ -28,6 +28,9 @@ public:
 	void onCellSearch(const Coords& position) override;
 	void onFill(const Cell& cell) override;
 
+	void setPosition(const sf::Vector2f& positon);
+	sf::Vector2f getPosition() const;
+
 	void update();
 	void render(sf::RenderTarget& target);
 

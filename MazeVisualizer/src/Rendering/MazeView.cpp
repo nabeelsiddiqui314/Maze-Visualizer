@@ -42,6 +42,14 @@ void MazeView::onFill(const Cell& cell) {
 	}
 }
 
+void MazeView::setPosition(const sf::Vector2f& positon) {
+	m_grid.setPosition(positon);
+}
+
+sf::Vector2f MazeView::getPosition() const {
+	return m_grid.getPosition();
+}
+
 void MazeView::update() {
 	addOverlay(m_maze->getPathStart(), Colors::PathStart);
 	addOverlay(m_maze->getPathDestination(), Colors::PathEnd);
