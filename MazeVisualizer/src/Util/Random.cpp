@@ -16,4 +16,8 @@ namespace Random {
 
 		return rand() % upperBound;
 	}
+
+	int get(int lowerBound, int upperBound) {
+		return get(upperBound - lowerBound) + lowerBound;
+	}
 }
