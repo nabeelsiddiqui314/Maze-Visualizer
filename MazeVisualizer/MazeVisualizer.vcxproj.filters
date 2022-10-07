@@ -39,6 +39,9 @@
     <ClCompile Include="src\Algorithms\Pathfinding\Wavefront.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Algorithms\Generation\RecursiveDivision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Rendering\Colors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Algorithms\Generation\RecursiveDivision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

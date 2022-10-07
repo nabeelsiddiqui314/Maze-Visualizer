@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Algorithms\Generation\RecursiveBacktracker.cpp" />
+    <ClCompile Include="src\Algorithms\Generation\RecursiveDivision.cpp" />
     <ClCompile Include="src\Algorithms\Pathfinding\Wavefront.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="src\Algorithms\Generation\IMazeGenerator.h" />
     <ClInclude Include="src\Algorithms\Generation\RecursiveBacktracker.h" />
+    <ClInclude Include="src\Algorithms\Generation\RecursiveDivision.h" />
     <ClInclude Include="src\Algorithms\Pathfinding\IPathfinder.h" />
     <ClInclude Include="src\Algorithms\Pathfinding\Wavefront.h" />
     <ClInclude Include="src\Application.h" />

@@ -2,7 +2,7 @@
 #include "Application.h"
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Maze Visualizer");
+	sf::RenderWindow window(sf::VideoMode(1000, 700), "Maze Visualizer");
 	Application application(window.getSize().x, window.getSize().y);
 
 	while (window.isOpen()) {
