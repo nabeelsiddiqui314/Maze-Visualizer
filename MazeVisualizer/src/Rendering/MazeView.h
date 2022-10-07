@@ -29,7 +29,7 @@ public:
 	void onFill(const Cell& cell) override;
 
 	void setPosition(const sf::Vector2f& positon);
-	sf::Vector2f getPosition() const;
+	Coords getCellFromPoint(const sf::Vector2i& point) const;
 
 	void update();
 	void render(sf::RenderTarget& target);

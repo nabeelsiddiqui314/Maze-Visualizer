@@ -46,8 +46,13 @@ void MazeView::setPosition(const sf::Vector2f& positon) {
 	m_grid.setPosition(positon);
 }
 
-sf::Vector2f MazeView::getPosition() const {
-	return m_grid.getPosition();
+Coords MazeView::getCellFromPoint(const sf::Vector2i& point) const {
+	sf::Vector2i gridPosition(m_grid.getPosition());
+	sf::Vector2i difference = point - gridPosition;
+
+	int totalWidth = m_grid.getCellWidth() + m_grid.getSpacing();
+
+	return { difference.x / totalWidth, difference.y / totalWidth };
 }
 
 void MazeView::update() {

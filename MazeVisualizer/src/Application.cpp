@@ -13,7 +13,7 @@ Application::Application(std::uint32_t width, std::uint32_t height)
 	m_maze.setPathfinder(std::make_unique<Wavefront>());
 }
 
-void Application::onEvent(const sf::Event& event) {
+void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event) {
 	switch (event.type) {
 	case sf::Event::KeyReleased:
 		if (event.key.code == sf::Keyboard::G) {
@@ -21,6 +21,15 @@ void Application::onEvent(const sf::Event& event) {
 		}
 		if (event.key.code == sf::Keyboard::P) {
 			m_maze.findPath();
+		}
+		break;
+	case sf::Event::MouseButtonPressed:
+		Coords cellPosition = m_mazeView.getCellFromPoint(sf::Mouse::getPosition(window));
+		if (!m_maze.isOutOfBounds(cellPosition)) {
+			if (event.mouseButton.button == sf::Mouse::Button::Left)
+				m_maze.setCellAt(cellPosition, Cell::WALL);
+			else
+				m_maze.setCellAt(cellPosition, Cell::EMPTY);
 		}
 		break;
 	}

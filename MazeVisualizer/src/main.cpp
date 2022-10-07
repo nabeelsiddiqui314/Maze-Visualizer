@@ -15,7 +15,7 @@ int main() {
 				break;
 
 			}
-			application.onEvent(event);
+			application.onEvent(window, event);
 		}
 
 		window.clear();
