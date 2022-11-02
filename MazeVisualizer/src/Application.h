@@ -10,6 +10,7 @@ public:
 	void onEvent(const sf::RenderWindow& window, const sf::Event& event);
 	void update();
 	void render(sf::RenderWindow& window);
+	void imguiRender();
 private:
 	Maze m_maze;
 	MazeView m_mazeView;

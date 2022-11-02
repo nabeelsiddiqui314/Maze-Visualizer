@@ -1,5 +1,7 @@
 #include "Application.h"
 #include <SFML/Window/Event.hpp>
+#include <imgui.h>
+
 #include "Util/Random.h"
 
 #include "Algorithms/Generation/RecursiveBacktracker.h"
@@ -41,4 +43,8 @@ void Application::update() {
 
 void Application::render(sf::RenderWindow& window) {
 	m_mazeView.render(window);
+}
+
+void Application::imguiRender() {
+
 }
