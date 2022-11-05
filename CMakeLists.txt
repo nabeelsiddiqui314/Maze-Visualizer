@@ -5,7 +5,6 @@ project(MazeVisualizer)
 set(SFML_STATIC_LIBRARIES TRUE)
 
 find_package(SFML 2.5.1 REQUIRED COMPONENTS graphics window system audio)
-find_package(ImGui-SFML REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
@@ -27,5 +26,4 @@ target_link_libraries(
  sfml-window
  sfml-system
  sfml-audio
- ImGui-SFML::ImGui-SFML
 )
