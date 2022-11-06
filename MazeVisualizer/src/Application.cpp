@@ -35,6 +35,10 @@ void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event
 	}
 }
 
+void Application::addGUI(sfg::Desktop& desktop) {
+	
+}
+
 void Application::update() {
 	m_mazeView.update();
 }
