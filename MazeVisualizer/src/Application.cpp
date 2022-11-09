@@ -14,6 +14,8 @@ Application::Application(std::uint32_t width, std::uint32_t height)
 }
 
 void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event) {
+	m_desktop.HandleEvent(event);
+
 	switch (event.type) {
 	case sf::Event::KeyReleased:
 		if (event.key.code == sf::Keyboard::G) {
@@ -35,11 +37,8 @@ void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event
 	}
 }
 
-void Application::addGUI(sfg::Desktop& desktop) {
-	
-}
-
-void Application::update() {
+void Application::update(float dt) {
+	m_desktop.Update(dt);
 	m_mazeView.update();
 }
 

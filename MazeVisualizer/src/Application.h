@@ -1,10 +1,7 @@
 #pragma once
 #include "Maze/Maze.h"
 #include "Rendering/MazeView.h"
-
-namespace sfg {
-	class Desktop;
-}
+#include <SFGUI/Widgets.hpp>
 
 class Application {
 public:
@@ -12,10 +9,10 @@ public:
 	~Application() = default;
 public:
 	void onEvent(const sf::RenderWindow& window, const sf::Event& event);
-	void addGUI(sfg::Desktop& desktop);
-	void update();
+	void update(float dt);
 	void render(sf::RenderWindow& window);
 private:
 	Maze m_maze;
 	MazeView m_mazeView;
+	sfg::Desktop m_desktop;
 };
