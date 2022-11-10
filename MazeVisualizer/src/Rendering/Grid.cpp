@@ -5,7 +5,8 @@ Grid::Grid(const Size& size, int cellWidth, int spacing, const sf::Color& color)
    m_position(0.0f, 0.0f),
    m_width(size.width),
    m_cellWidth(cellWidth),
-   m_spacing(spacing) {
+   m_spacing(spacing),
+   m_size(size.width * (cellWidth + spacing), size.height * (cellWidth + spacing)) {
 	int totalWidth = cellWidth + spacing;
 
 	for (int y = 0; y < size.height; y++) {
@@ -51,7 +52,11 @@ int Grid::getSpacing() const {
 	return m_spacing;
 }
 
-void Grid::render(sf::RenderTarget& target) {
+sf::Vector2f Grid::getSize() const {
+	return m_size;
+}
+
+void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	sf::Transform transform;
 	transform.translate(m_position);
 	target.draw(m_vertices, transform);

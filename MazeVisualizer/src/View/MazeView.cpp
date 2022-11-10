@@ -1,11 +1,13 @@
 #include "MazeView.h"
 #include <thread>
-#include "Colors.h"
+#include "../Rendering/Colors.h"
 
 using namespace std::chrono_literals;
 
 MazeView::MazeView(Maze* maze, int cellWidth, int spacing) 
-	: m_maze(maze), m_grid(maze->getSize(), cellWidth, spacing), m_stepDelay(5us) {}
+	: m_maze(maze), m_grid(maze->getSize(), cellWidth, spacing), m_stepDelay(5us), m_canvas(sfg::Canvas::Create()) {
+	m_canvas->SetRequisition(m_grid.getSize());
+}
 
 void MazeView::onCellChange(const Coords& position) {
 	Cell newCell = m_maze->getCellAt(position);
@@ -60,7 +62,7 @@ void MazeView::update() {
 	addOverlay(m_maze->getPathDestination(), Colors::PathEnd);
 }
 
-void MazeView::render(sf::RenderTarget& target) {
+void MazeView::render() {
 	if (!m_animationQueue.empty()) {
 		auto& animation = m_animationQueue.front();
 
@@ -85,12 +87,16 @@ void MazeView::render(sf::RenderTarget& target) {
 		m_grid.setCellColor(overlay.position, overlay.overlayColor);
 	}
 
-	m_grid.render(target);
+	renderToCanvas();
 
 	for (auto& overlay : m_overlays) {
 		m_grid.setCellColor(overlay.position, overlay.originalColor);
 	}
 	m_overlays.clear();
+}
+
+sfg::Canvas::Ptr MazeView::getCanvas() const {
+	return m_canvas;
 }
 
 void MazeView::setStepDelay(const std::chrono::microseconds& delay) {
@@ -122,4 +128,12 @@ void MazeView::enqueueAnimation(const Coords& position, const sf::Color& cellCol
 void MazeView::addOverlay(const Coords& position, const sf::Color& color) {
 	sf::Color originalColor = m_grid.getCellColor(position);
 	m_overlays.push_back({ position, color, originalColor });
+}
+
+void MazeView::renderToCanvas() {
+	m_canvas->Bind();
+	m_canvas->Clear();
+	m_canvas->Draw(m_grid);
+	m_canvas->Display();
+	m_canvas->Unbind();
 }

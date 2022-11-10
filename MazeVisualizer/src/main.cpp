@@ -5,9 +5,11 @@
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1000, 700), "Maze Visualizer");
-	Application application(window.getSize().x, window.getSize().y);
+	window.resetGLStates();
 
 	sfg::SFGUI sfgui;
+	
+	Application application(window.getSize().x, window.getSize().y);
 
 	sf::Clock clock;
 

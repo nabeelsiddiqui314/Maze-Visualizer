@@ -11,6 +11,8 @@ Application::Application(std::uint32_t width, std::uint32_t height)
 	m_maze.registerObserver(&m_mazeView);
 	m_maze.setGenerator(std::make_unique<RecursiveDivision>());
 	m_maze.setPathfinder(std::make_unique<Wavefront>());
+
+	m_desktop.Add(m_mazeView.getCanvas());
 }
 
 void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event) {
@@ -43,5 +45,5 @@ void Application::update(float dt) {
 }
 
 void Application::render(sf::RenderWindow& window) {
-	m_mazeView.render(window);
+	m_mazeView.render();
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "Maze/Maze.h"
-#include "Rendering/MazeView.h"
+#include "View/MazeView.h"
 #include <SFGUI/Widgets.hpp>
 
 class Application {
