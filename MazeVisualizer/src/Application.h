@@ -1,6 +1,7 @@
 #pragma once
 #include "Maze/Maze.h"
 #include "View/MazeView.h"
+#include "View/ControlPanel.h"
 #include <SFGUI/Widgets.hpp>
 
 class Application {
@@ -14,5 +15,7 @@ public:
 private:
 	Maze m_maze;
 	MazeView m_mazeView;
+	ControlPanel m_panel;
+
 	sfg::Desktop m_desktop;
 };

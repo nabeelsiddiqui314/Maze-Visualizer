@@ -7,12 +7,19 @@
 #include "Algorithms/Pathfinding/Wavefront.h"
 
 Application::Application(std::uint32_t width, std::uint32_t height)
-	: m_maze({(int)width / 20, (int)height / 20}), m_mazeView(&m_maze, 20, 0) {
+	: m_maze({(int)width / 20, (int)height / 20}), m_mazeView(&m_maze, 20, 0), m_panel(&m_maze) {
 	m_maze.registerObserver(&m_mazeView);
 	m_maze.setGenerator(std::make_unique<RecursiveDivision>());
 	m_maze.setPathfinder(std::make_unique<Wavefront>());
 
-	m_desktop.Add(m_mazeView.getCanvas());
+	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL);
+	auto panelWindow = m_panel.getWindow();
+	auto mazeCanvas = m_mazeView.getCanvas();
+	
+	box->Pack(panelWindow);
+	box->Pack(mazeCanvas);
+
+	m_desktop.Add(box);
 }
 
 void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event) {
@@ -42,6 +49,7 @@ void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event
 void Application::update(float dt) {
 	m_desktop.Update(dt);
 	m_mazeView.update();
+	
 }
 
 void Application::render(sf::RenderWindow& window) {
