@@ -23,6 +23,7 @@ Application::Application(std::uint32_t width, std::uint32_t height)
 }
 
 void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event) {
+	m_panel.onEvent(event);
 	m_desktop.HandleEvent(event);
 
 	switch (event.type) {
