@@ -2,15 +2,9 @@
 #include <SFML/Window/Event.hpp>
 #include "Util/Random.h"
 
-#include "Algorithms/Generation/RecursiveBacktracker.h"
-#include "Algorithms/Generation/RecursiveDivision.h"
-#include "Algorithms/Pathfinding/Wavefront.h"
-
 Application::Application(std::uint32_t width, std::uint32_t height)
 	: m_maze({(int)width / 20, (int)height / 20}), m_mazeView(&m_maze, 20, 0), m_panel(&m_maze) {
 	m_maze.registerObserver(&m_mazeView);
-	m_maze.setGenerator(std::make_unique<RecursiveDivision>());
-	m_maze.setPathfinder(std::make_unique<Wavefront>());
 
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL);
 	auto panelWindow = m_panel.getWindow();
