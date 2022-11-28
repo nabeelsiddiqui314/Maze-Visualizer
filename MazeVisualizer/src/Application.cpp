@@ -21,14 +21,6 @@ void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event
 	m_desktop.HandleEvent(event);
 
 	switch (event.type) {
-	case sf::Event::KeyReleased:
-		if (event.key.code == sf::Keyboard::G) {
-			m_maze.generate();
-		}
-		if (event.key.code == sf::Keyboard::P) {
-			m_maze.findPath();
-		}
-		break;
 	case sf::Event::MouseButtonPressed:
 		Coords cellPosition = m_mazeView.getCellFromPoint(sf::Mouse::getPosition(window));
 		if (!m_maze.isOutOfBounds(cellPosition)) {
