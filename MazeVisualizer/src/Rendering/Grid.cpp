@@ -2,7 +2,6 @@
 
 Grid::Grid(const Size& size, int cellWidth, int spacing, const sf::Color& color)
  : m_vertices(sf::Quads, size.width * size.height * 4),
-   m_position(0.0f, 0.0f),
    m_width(size.width),
    m_cellWidth(cellWidth),
    m_spacing(spacing),
@@ -21,14 +20,6 @@ Grid::Grid(const Size& size, int cellWidth, int spacing, const sf::Color& color)
 			setCellColor({x, y}, color);
 		}
 	}
-}
-
-void Grid::setPosition(const sf::Vector2f& positon) {
-	m_position = positon;
-}
-
-sf::Vector2f Grid::getPosition() const {
-	return m_position;
 }
 
 void Grid::setCellColor(const Coords& position, const sf::Color& color) {
@@ -57,9 +48,7 @@ sf::Vector2f Grid::getSize() const {
 }
 
 void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	sf::Transform transform;
-	transform.translate(m_position);
-	target.draw(m_vertices, transform);
+	target.draw(m_vertices);
 }
 
 std::size_t Grid::getFirstCellVertex(const Coords& position) const {

@@ -29,7 +29,6 @@ public:
 	void onCellSearch(const Coords& position) override;
 	void onFill(const Cell& cell) override;
 
-	void setPosition(const sf::Vector2f& positon);
 	Coords getCellFromPoint(const sf::Vector2i& point) const;
 
 	void update();
