@@ -48,17 +48,6 @@ void MazeView::onFill(const Cell& cell) {
 	}
 }
 
-Coords MazeView::getCellFromPoint(const sf::Vector2i& point) const {
-	auto canvasAllocation = GetAllocation();
-
-	sf::Vector2i gridPosition(canvasAllocation.left, canvasAllocation.top);
-	sf::Vector2i difference = point - gridPosition;
-
-	int totalWidth = m_grid.getCellWidth() + m_grid.getSpacing();
-
-	return { difference.x / totalWidth, difference.y / totalWidth };
-}
-
 void MazeView::update() {
 	addOverlay(m_maze->getPathStart(), Colors::PathStart);
 	addOverlay(m_maze->getPathDestination(), Colors::PathEnd);
@@ -110,8 +99,14 @@ void MazeView::HandleMouseButtonEvent(sf::Mouse::Button button, bool press, int 
 	x -= allocation.left;
 	y -= allocation.top;
 
+	x /= m_grid.getCellWidth();
+	y /= m_grid.getCellWidth();
+
 	if (button == sf::Mouse::Left) {
-		m_maze->setCellAt({ x / m_grid.getCellWidth(), y / m_grid.getCellWidth() }, Cell::WALL);
+		m_maze->setCellAt({ x, y }, Cell::WALL);
+	}
+	else {
+		m_maze->setCellAt({ x, y }, Cell::EMPTY);
 	}
 }
 
