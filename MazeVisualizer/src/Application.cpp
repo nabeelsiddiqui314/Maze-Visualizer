@@ -3,15 +3,16 @@
 #include "Util/Random.h"
 
 Application::Application(std::uint32_t width, std::uint32_t height)
-	: m_maze({(int)width / 20, (int)height / 20}), m_mazeView(&m_maze, 20, 0), m_panel(&m_maze) {
-	m_maze.registerObserver(&m_mazeView);
+	: m_maze({(int)width / 20, (int)height / 20}), m_panel(&m_maze) {
+	m_mazeView = MazeView::Create(&m_maze, 20, 0);
+	
+	m_maze.registerObserver(m_mazeView);
 
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL);
 	auto panelWindow = m_panel.getWindow();
-	auto mazeCanvas = m_mazeView.getCanvas();
 	
 	box->Pack(panelWindow);
-	box->Pack(mazeCanvas);
+	box->Pack(m_mazeView);
 
 	m_desktop.Add(box);
 }
@@ -19,26 +20,14 @@ Application::Application(std::uint32_t width, std::uint32_t height)
 void Application::onEvent(const sf::RenderWindow& window, const sf::Event& event) {
 	m_panel.onEvent(event);
 	m_desktop.HandleEvent(event);
-
-	switch (event.type) {
-	case sf::Event::MouseButtonPressed:
-		Coords cellPosition = m_mazeView.getCellFromPoint(sf::Mouse::getPosition(window));
-		if (!m_maze.isOutOfBounds(cellPosition)) {
-			if (event.mouseButton.button == sf::Mouse::Button::Left)
-				m_maze.setCellAt(cellPosition, Cell::WALL);
-			else
-				m_maze.setCellAt(cellPosition, Cell::EMPTY);
-		}
-		break;
-	}
 }
 
 void Application::update(float dt) {
 	m_desktop.Update(dt);
-	m_mazeView.update();
+	m_mazeView->update();
 	
 }
 
 void Application::render(sf::RenderWindow& window) {
-	m_mazeView.render();
+	m_mazeView->render();
 }

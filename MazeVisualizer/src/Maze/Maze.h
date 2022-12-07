@@ -14,6 +14,8 @@ enum class Cell {
 class IMazeObserver;
 
 class Maze {
+private:
+	using ObserverPtr = std::weak_ptr<IMazeObserver>;
 public:
 	enum class State {
 		IDLE,
@@ -47,13 +49,13 @@ public:
 
 	State getState() const;
 
-	void registerObserver(IMazeObserver* observer);
+	void registerObserver(const ObserverPtr& observer);
 private:
 	Array2D<Cell> m_cells;
 	Size m_size;
 	std::unique_ptr<IMazeGenerator> m_generator;
 	Coords m_start, m_end;
 	std::unique_ptr<IPathFinder> m_pathfinder;
-	std::vector<IMazeObserver*> m_observers;
+	std::vector<ObserverPtr> m_observers;
 	State m_state;
 };

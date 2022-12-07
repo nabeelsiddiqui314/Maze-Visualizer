@@ -20,11 +20,16 @@ struct Overlay {
 	sf::Color originalColor;
 };
 
-class MazeView : public IMazeObserver {
+class MazeView : public IMazeObserver, public sfg::Canvas {
 public:
-	MazeView(Maze* maze, int cellWidth, int spacing);
+	using Ptr = std::shared_ptr<MazeView>;
+public:
 	~MazeView() = default;
+private:
+	MazeView(Maze* maze, int cellWidth, int spacing);
 public:
+	static Ptr Create(Maze* maze, int cellWidth, int spacing);
+
 	void onCellChange(const Coords& position) override;
 	void onCellSearch(const Coords& position) override;
 	void onFill(const Cell& cell) override;
@@ -34,10 +39,10 @@ public:
 	void update();
 	void render();
 
-	sfg::Canvas::Ptr getCanvas() const;
-
 	void setStepDelay(const std::chrono::microseconds& delay);
 private:
+	void HandleMouseButtonEvent(sf::Mouse::Button button, bool press, int x, int y) override;
+
 	sf::Color getCellColor(const Cell& cell) const;
 	void enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor);
 	void addOverlay(const Coords& position, const sf::Color& color);
@@ -48,7 +53,6 @@ private:
 	Grid m_grid;
 	std::queue<Animation> m_animationQueue;
 	std::vector<Overlay> m_overlays;
-	sfg::Canvas::Ptr m_canvas;
 
 	std::chrono::microseconds m_stepDelay;
 };

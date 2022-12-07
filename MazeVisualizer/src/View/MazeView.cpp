@@ -5,8 +5,12 @@
 using namespace std::chrono_literals;
 
 MazeView::MazeView(Maze* maze, int cellWidth, int spacing) 
-	: m_maze(maze), m_grid(maze->getSize(), cellWidth, spacing), m_stepDelay(5us), m_canvas(sfg::Canvas::Create()) {
-	m_canvas->SetRequisition(m_grid.getSize());
+	: sfg::Canvas(false), m_maze(maze), m_grid(maze->getSize(), cellWidth, spacing), m_stepDelay(5us) {
+	SetRequisition(m_grid.getSize());
+}
+
+MazeView::Ptr MazeView::Create(Maze* maze, int cellWidth, int spacing) {
+	return Ptr(new MazeView(maze, cellWidth, spacing));
 }
 
 void MazeView::onCellChange(const Coords& position) {
@@ -45,7 +49,7 @@ void MazeView::onFill(const Cell& cell) {
 }
 
 Coords MazeView::getCellFromPoint(const sf::Vector2i& point) const {
-	auto canvasAllocation = m_canvas->GetAllocation();
+	auto canvasAllocation = GetAllocation();
 
 	sf::Vector2i gridPosition(canvasAllocation.left, canvasAllocation.top);
 	sf::Vector2i difference = point - gridPosition;
@@ -93,12 +97,22 @@ void MazeView::render() {
 	m_overlays.clear();
 }
 
-sfg::Canvas::Ptr MazeView::getCanvas() const {
-	return m_canvas;
-}
-
 void MazeView::setStepDelay(const std::chrono::microseconds& delay) {
 	m_stepDelay = delay;
+}
+
+void MazeView::HandleMouseButtonEvent(sf::Mouse::Button button, bool press, int x, int y) {
+	if (!IsMouseInWidget() || !press)
+		return;
+
+	auto allocation = GetAllocation();
+
+	x -= allocation.left;
+	y -= allocation.top;
+
+	if (button == sf::Mouse::Left) {
+		m_maze->setCellAt({ x / m_grid.getCellWidth(), y / m_grid.getCellWidth() }, Cell::WALL);
+	}
 }
 
 sf::Color MazeView::getCellColor(const Cell& cell) const {
@@ -129,9 +143,9 @@ void MazeView::addOverlay(const Coords& position, const sf::Color& color) {
 }
 
 void MazeView::renderToCanvas() {
-	m_canvas->Bind();
-	m_canvas->Clear();
-	m_canvas->Draw(m_grid);
-	m_canvas->Display();
-	m_canvas->Unbind();
+	Bind();
+	Clear();
+	Draw(m_grid);
+	Display();
+	Unbind();
 }

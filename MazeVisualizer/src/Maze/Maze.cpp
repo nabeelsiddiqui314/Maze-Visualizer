@@ -13,14 +13,16 @@ Maze::Maze(const Size& size)
 void Maze::setCellAt(const Coords& position, const Cell& cell) {
     m_cells[position] = cell;
 
-    for (auto& observer : m_observers) {
-        observer->onCellChange(position);
+    for (auto& observerPtr : m_observers) {
+        if (auto observer = observerPtr.lock())
+            observer->onCellChange(position);
     }
 }
 
 Cell Maze::getCellAt(const Coords& position) const {
-    for (auto& observer : m_observers) {
-        observer->onCellSearch(position);
+    for (auto& observerPtr : m_observers) {
+        if (auto observer = observerPtr.lock())
+            observer->onCellSearch(position);
     }
 
     return m_cells[position];
@@ -29,8 +31,9 @@ Cell Maze::getCellAt(const Coords& position) const {
 void Maze::fill(const Cell& cell) {
     m_cells.fill(cell);
 
-    for (auto& observer : m_observers) {
-        observer->onFill(cell);
+    for (auto& observerPtr : m_observers) {
+        if (auto observer = observerPtr.lock())
+            observer->onFill(cell);
     }
 }
 
@@ -91,6 +94,6 @@ void Maze::findPath() {
     m_state = State::IDLE;
 }
 
-void Maze::registerObserver(IMazeObserver* observer) {
+void Maze::registerObserver(const ObserverPtr& observer) {
     m_observers.push_back(observer);
 }

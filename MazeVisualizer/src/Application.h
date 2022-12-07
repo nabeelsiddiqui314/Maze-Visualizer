@@ -14,7 +14,7 @@ public:
 	void render(sf::RenderWindow& window);
 private:
 	Maze m_maze;
-	MazeView m_mazeView;
+	MazeView::Ptr m_mazeView;
 	ControlPanel m_panel;
 
 	sfg::Desktop m_desktop;
