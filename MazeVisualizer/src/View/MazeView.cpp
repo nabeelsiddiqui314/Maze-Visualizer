@@ -91,7 +91,7 @@ void MazeView::setStepDelay(const std::chrono::microseconds& delay) {
 }
 
 void MazeView::HandleMouseButtonEvent(sf::Mouse::Button button, bool press, int x, int y) {
-	if (!IsMouseInWidget() || !press)
+	if (!IsMouseInWidget() || !press || isAnimating())
 		return;
 
 	auto allocation = GetAllocation();
@@ -135,6 +135,10 @@ void MazeView::enqueueAnimation(const Coords& position, const sf::Color& cellCol
 void MazeView::addOverlay(const Coords& position, const sf::Color& color) {
 	sf::Color originalColor = m_grid.getCellColor(position);
 	m_overlays.push_back({ position, color, originalColor });
+}
+
+bool MazeView::isAnimating() const {
+	return m_animationQueue.size() > 0;
 }
 
 void MazeView::renderToCanvas() {

@@ -45,6 +45,8 @@ private:
 	void enqueueAnimation(const Coords& position, const sf::Color& cellColor, const sf::Color& cursorColor);
 	void addOverlay(const Coords& position, const sf::Color& color);
 
+	bool isAnimating() const;
+
 	void renderToCanvas();
 private:
 	Maze* m_maze;
