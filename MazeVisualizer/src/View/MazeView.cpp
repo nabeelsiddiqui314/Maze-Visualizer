@@ -14,20 +14,20 @@ void MazeView::onCellChange(const Coords& position) {
 	sf::Color cellColor = getCellColor(newCell);
 
 	switch (m_maze->getState()) {
-	case State::IDLE:
+	case Maze::State::IDLE:
 		m_grid.setCellColor(position, cellColor);
 		break;
-	case State::GENERATING:
+	case Maze::State::GENERATING:
 		enqueueAnimation(position, cellColor, Colors::GenerationCursor);
 		break;
-	case State::PATHFINDING:
+	case Maze::State::PATHFINDING:
 		enqueueAnimation(position, cellColor, Colors::PathCursor);
 		break;
 	}
 }
 
 void MazeView::onCellSearch(const Coords& position) {
-	if (m_maze->getState() == State::PATHFINDING) {
+	if (m_maze->getState() == Maze::State::PATHFINDING) {
 		if (m_grid.getCellColor(position) != Colors::Wall) {
 			enqueueAnimation(position, Colors::SearchArea, Colors::SearchCursor);
 		}

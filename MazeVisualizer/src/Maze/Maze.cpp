@@ -73,7 +73,7 @@ Coords Maze::getPathDestination() const {
     return m_end;
 }
 
-State Maze::getState() const {
+Maze::State Maze::getState() const {
     return m_state;
 }
 

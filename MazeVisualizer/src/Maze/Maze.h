@@ -11,15 +11,15 @@ enum class Cell {
 	PATH
 };
 
-enum class State {
-	IDLE,
-	GENERATING,
-	PATHFINDING
-};
-
 class IMazeObserver;
 
 class Maze {
+public:
+	enum class State {
+		IDLE,
+		GENERATING,
+		PATHFINDING
+	};
 public:
 	Maze(const Size& size);
 	~Maze() = default;
