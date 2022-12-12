@@ -41,6 +41,8 @@ public:
 	void setPathStart(const Coords& position);
 	void setPathDestination(const Coords& position);
 
+	void randomizePathEnds();
+
 	Coords getPathStart() const;
 	Coords getPathDestination() const;
 

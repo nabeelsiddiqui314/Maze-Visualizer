@@ -5,7 +5,7 @@
 ControlPanel::ControlPanel(Maze* maze) : m_maze(maze) {
 	m_mainWindow = sfg::Window::Create(sfg::Window::Style::BACKGROUND);
 
-	m_box = sfg::Box::Create(sfg::Box::Orientation::HORIZONTAL);
+	m_box = sfg::Box::Create(sfg::Box::Orientation::HORIZONTAL, 4.0f);
 	
 	initButtons();
 	initComboBoxes();
@@ -14,6 +14,7 @@ ControlPanel::ControlPanel(Maze* maze) : m_maze(maze) {
 	m_box->Pack(m_generateButton);
 	m_box->Pack(m_pathfinderCB);
 	m_box->Pack(m_findPathButton);
+	m_box->Pack(m_randomizePathButton);
 
 	m_mainWindow->Add(m_box);
 }
@@ -40,6 +41,9 @@ void ControlPanel::initButtons() {
 
 	m_findPathButton = sfg::Button::Create("Find path");
 	m_findPathButton->GetSignal(sfg::Widget::OnLeftClick).Connect([=]() { m_maze->findPath(); });
+
+	m_randomizePathButton = sfg::Button::Create("Randomize path ends");
+	m_randomizePathButton->GetSignal(sfg::Widget::OnLeftClick).Connect([=]() { m_maze->randomizePathEnds(); });
 }
 
 void ControlPanel::initComboBoxes() {

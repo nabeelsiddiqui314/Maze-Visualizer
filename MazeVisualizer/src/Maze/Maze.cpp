@@ -6,9 +6,9 @@
 Maze::Maze(const Size& size) 
     : m_cells(size, Cell::EMPTY), 
       m_size(size),
-      m_start(Random::get(size.width), Random::get(size.height)),
-      m_end(Random::get(size.width), Random::get(size.height)),
-      m_state(State::IDLE) {}
+      m_state(State::IDLE) {
+    randomizePathEnds();
+}
 
 void Maze::setCellAt(const Coords& position, const Cell& cell) {
     m_cells[position] = cell;
@@ -66,6 +66,11 @@ void Maze::setPathStart(const Coords& position) {
 
 void Maze::setPathDestination(const Coords& position) {
     m_end = position;
+}
+
+void Maze::randomizePathEnds() {
+    m_start = { Random::get(m_size.width), Random::get(m_size.height) };
+    m_end = { Random::get(m_size.width), Random::get(m_size.height) };
 }
 
 Coords Maze::getPathStart() const {

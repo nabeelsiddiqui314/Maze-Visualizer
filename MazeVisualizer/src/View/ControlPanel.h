@@ -24,6 +24,8 @@ private:
 	sfg::ComboBox::Ptr m_pathfinderCB;
 	sfg::Button::Ptr m_findPathButton;
 
+	sfg::Button::Ptr m_randomizePathButton;
+
 	AlgorithmFactory m_algorithmFactory;
 	Maze* m_maze;
 };
